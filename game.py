@@ -1,25 +1,22 @@
 import pyglet
-from Game import classes
+from Game import GameEngine
 from pyglet.window import key
 
 pyglet.options['search_local_libs'] = True
-pyglet.resource.path = ['/Resources', '../Resources', 'Resources']
-pyglet.resource.reindex()
 
 
 
-keys = key.KeyStateHandler()
-game = classes.Gra(keys=keys)
+Keys = key.KeyStateHandler()
+game = GameEngine.Gra(keys=Keys)
 game_window = pyglet.window.Window()
-game_window.push_handlers(keys)
+game_window.push_handlers(Keys)
 
 def moving(dt):
     game.moving()
 
 def update(dt):
     game.update()
-    for x in game.area.npcs:
-        x.update()
+
 
 @game_window.event
 def on_draw():
