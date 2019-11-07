@@ -4,7 +4,7 @@ from .classes import Npc
 
 soldier = Npc(name='zolnierz',
 desc='standardowo uzbrojony zolnierz wroga',
-aggresiv=True,
+aggresiv=False,
 walker=True,
 hp=100,
 x=10,
@@ -12,7 +12,7 @@ y=10)
 
 officer = Npc(name='oficer wojsk wroga',
 desc='oficer wrogiej armi',
-aggresiv=True,
+aggresiv=False,
 walker=True,
 hp=250,
 x=5,
@@ -20,7 +20,7 @@ y=5)
 
 general = Npc(name='general',
 desc='glowny general wojsk wroga',
-aggresiv=True,
+aggresiv=False,
 walker=False,
 hp=500,
 x=5,

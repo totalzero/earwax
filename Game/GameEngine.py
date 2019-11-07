@@ -69,11 +69,11 @@ class Gra:
                 pass
 
         if self.keys[key.A]:
-            try:
+#            try:
                 speak(('posiadasz w magazynku', str(self.player.current_weapon.missiles), 'pociskow'))
-                speak('do tego posiadasz ', str(len(self.player.current_weapon.spare_ammunition)), 'zapasowych magazynkow')
-            except:
-                speak(('brak amunicji do tej broni'))
+                speak(('do tego posiadasz ', str(len(self.player.current_weapon.spare_ammunition)), 'zapasowych magazynkow'))
+#            except:
+#                speak(('brak amunicji do tej broni'))
 
         if self.keys[key.R]:
             sprawdzam = False
@@ -150,6 +150,9 @@ class Gra:
             for i in self.area.object:
                 speak((str(i.name), 'x:', str(i.x), 'y:', str(i.y)))
 
+        if self.keys[key.M]:
+            speak(((self.area.name)))
+
         if self.keys[key.O]:
             try:
                 for location in self.area.object:
@@ -160,12 +163,10 @@ class Gra:
                         self.player.main_aim = None
                         self.itemcounter.clear()
                         self.area = location
-                        self.location.sound.play()
+                        location.sound.play()
             except:
                 speak(('gdzie chcesz wejsc?'))
 
-        if self.keys[key.M]:
-            speak(('jestes w', self.area.name, 'wymiary tego pomieszczenia to:', self.area.max_x, 'na', self.area.max_y), 'twoj glowny cel to:', str(self.player.main_aim.name))
 
 
         for i in self.area.npcs:
@@ -180,12 +181,6 @@ class Gra:
                 i.walker = True
                 if i in self.player.aims:
                     self.player.aims.remove(i)
-
-        for x in self.area.npcs:
-            if x.x > self.area.max_x:
-                x.x = self.area.max_x
-            if x.y > self.area.max_y:
-                x.y = self.area.max_y
 
         for x in self.player.aims:
             if x.aggresiv == True:

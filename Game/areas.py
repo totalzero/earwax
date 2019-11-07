@@ -4,11 +4,12 @@ from .classes import Location, Area
 
 posterunek = Location(name='posterunek',
 desc='posterunek zolnierzy stacjonujacych w bazie',
+sound = sounds.doors[1],
 x=15,
 y=5)
 posterunek.adderobj(guns.macarow, 1)
 posterunek.adderobj(guns.macarowammo, 5)
-posterunek.addernpc(mobs.soldier, 5)
+posterunek.addernpc(mobs.general, 1)
 
 
 koszary = Location(name='koszary wojskowe',
@@ -25,4 +26,4 @@ desc = 'ogromna wojskowa baza ktora musisz zniszczyc',
 object = [posterunek, koszary],
 max_x = 1000,
 max_y = 1000)
-baza1.addernpc(mobs.soldier, 50)
+baza1.addernpc(mobs.soldier, 1)

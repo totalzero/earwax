@@ -61,23 +61,23 @@ class Area:
             self.npcs.append(npc2)
 
 class Location:
-    def __init__(self, name='examplelocation', desc='this is a example location', x=10, y=10, obj = [], npc=[], sound=None):
+    def __init__(self, name='examplelocation', desc='this is a example location', x=10, y=10, object = [], npcs=[], sound=None):
         self.name = name
         self.desc = desc
         self.x = x
         self.y = y
         self.sound = sound
-        self.obj = obj
-        self.npc = npc
+        self.object = object
+        self.npcs = npcs
         self.maxX = 25
         self.maxY = 25
         self.destroyed = False
 
     def update(self):
-        for x in self.npc:
+        for x in self.npcs:
             x.update()
             if x.life == False:
-                self.npc.remove(x)
+                self.npcs.remove(x)
             if x.x > self.maxX:
                 x.x = self.maxX
             if x.y > self.maxY:
@@ -88,14 +88,14 @@ class Location:
             obj2 = copy.deepcopy(obj)
             obj2.x = randint(0, self.maxX)
             obj2.y = randint(0, self.maxY)
-            self.obj.append(obj2)
+            self.object.append(obj2)
 
     def addernpc(self, npc, number):
         for _ in range(number):
             npc2 = copy.deepcopy(npc)
             npc2.x = randint(0, self.maxX)
             npc2.y = randint(0, self.maxY)
-            self.npc.append(npc2)
+            self.npcs.append(npc2)
 
 
 class Exit:
