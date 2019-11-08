@@ -1,29 +1,42 @@
+import copy
+from random import randint
 from . import guns, sounds, mobs
-from .classes import Location, Area
+from .classes import Location, Area, Exit
 
+macarow = copy.deepcopy(guns.macarow)
+macarow.x, macarow.y = 10, 10
+ammo_macarow = copy.deepcopy(guns.macarowammo)
+ammo_macarow.x, ammo_macarow.y = 10, 10
 
-posterunek = Location(name='posterunek',
-desc='posterunek zolnierzy stacjonujacych w bazie',
+baza1 = None
+
+baza_wejscie = Exit(name='wyjscie do bazy',
+x = 0,
+y = 0,
 sound = sounds.doors[1],
-x=15,
-y=5)
-posterunek.adderobj(guns.macarow, 1)
-posterunek.adderobj(guns.macarowammo, 5)
-posterunek.addernpc(mobs.general, 1)
+area = baza1)
+
+posterunek = Area(name='posterunek',
+desc='posterunek',
+max_x=25,
+max_y=25,
+exits=[baza_wejscie],
+object = [macarow, ammo_macarow, ammo_macarow, ammo_macarow])
+
+posterunek_wejscie = Exit(name='posterunek',
+x=5,
+y=5,
+sound = sounds.doors[1],
+area = posterunek)
 
 
-koszary = Location(name='koszary wojskowe',
-desc='podluzny budynek w ktorym znajduja sie koszary',
-x=50,
-y=50)
-koszary.adderobj(guns.ak47, 1)
-koszary.adderobj(guns.akammo, 5)
-koszary.addernpc(mobs.soldier, 15)
 
 
-baza1 = Area(name = 'wojskowa baza',
-desc = 'ogromna wojskowa baza ktora musisz zniszczyc',
-object = [posterunek, koszary],
-max_x = 1000,
-max_y = 1000)
-baza1.addernpc(mobs.soldier, 1)
+baza1 = Area(name='baza',
+desc = 'przykladowa kraina',
+max_x=100,
+max_y=100,
+exits=[posterunek_wejscie],
+npcs=[copy.deepcopy(mobs.soldier)])
+
+

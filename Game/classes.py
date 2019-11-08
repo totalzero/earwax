@@ -1,5 +1,4 @@
 import pyglet
-import copy
 import Tolk
 from pyglet.window import key
 from random import randint
@@ -31,7 +30,8 @@ class Player:
         weapon.get_sound.play()
 
 class Area:
-    def __init__(self, desc = '', max_x=100, max_y=100, name = None, object=[], npcs=[]):
+    def __init__(self, desc = '', max_x=100, max_y=100, name = None, object=[], npcs=[], exits=[]):
+        self.exits = exits
         self.max_x = max_x
         self.max_y = max_y
         self.name = name
@@ -48,29 +48,19 @@ class Area:
                 i.y = self.max_y
             if i.life == False:
                 self.npcs.remove(i)
-        for x in self.object:
-            x.update()
-            if x.destroyed == True:
-                self.object.remove(x)
 
-    def addernpc(self, npc, number):
-        for _ in range(number):
-            npc2 = copy.deepcopy(npc)
-            npc2.x = randint(0, self.max_x)
-            npc2.y = randint(0, self.max_y)
-            self.npcs.append(npc2)
 
 class Location:
-    def __init__(self, name='examplelocation', desc='this is a example location', x=10, y=10, object = [], npcs=[], sound=None):
+    def __init__(self, name='examplelocation', desc='this is a example location', x=10, y=10, object = [], npcs=[], exits=[]):
         self.name = name
         self.desc = desc
         self.x = x
         self.y = y
-        self.sound = sound
         self.object = object
         self.npcs = npcs
-        self.maxX = 25
-        self.maxY = 25
+        self.max_x = 25
+        self.max_y = 25
+        self.exits = exits
         self.destroyed = False
 
     def update(self):
@@ -78,32 +68,18 @@ class Location:
             x.update()
             if x.life == False:
                 self.npcs.remove(x)
-            if x.x > self.maxX:
-                x.x = self.maxX
-            if x.y > self.maxY:
-                x.y = self.maxY
-
-    def adderobj(self, obj, number):
-        for _ in range(number):
-            obj2 = copy.deepcopy(obj)
-            obj2.x = randint(0, self.maxX)
-            obj2.y = randint(0, self.maxY)
-            self.object.append(obj2)
-
-    def addernpc(self, npc, number):
-        for _ in range(number):
-            npc2 = copy.deepcopy(npc)
-            npc2.x = randint(0, self.maxX)
-            npc2.y = randint(0, self.maxY)
-            self.npcs.append(npc2)
-
+            if x.x > self.max_x:
+                x.x = self.max_x
+            if x.y > self.max_y:
+                x.y = self.max_y
 
 class Exit:
-    def __init__(self, name='examplexit', x=0, y=0,area=None):
+    def __init__(self, name='examplexit', x=0, y=0,area=None, sound=None):
         self.name = name
         self.x = x
         self.y = y
         self.area = area
+        self.sound = sound
 
 
 class Weapon:

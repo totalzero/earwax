@@ -5,13 +5,14 @@ from . import sounds, player, guns, areas
 from .classes import speak
 from .classes import Weapon
 
+baza = areas.baza1
+
 class Gra:
     """cala logika gry, zawiera obiekty takie jak player, area, map, keys - ktore to sa instancjami klas o tej samej nazwie - obserwuje i nadzoruje wszystkie obiekty w grze, okresla ich wzajemne relacje, odpowiada za wszystko"""
-    def __init__(self, keys):
-
+    def __init__(self, keys, area = baza):
         self.keys = keys
         self.player = player.player
-        self.area = areas.baza1
+        self.area = area
         self.stepping = 0
         self.alert = sounds.aim
         self.celownik = 0
@@ -29,9 +30,6 @@ class Gra:
         else:
             self.itemcounter.append(item)
 
-
-    def open_door(self, name_loc):
-        self.area = self.mapa[name_loc]
 
     def npc_attacks(self, npc):
         a = bool(randint(0, 1))
@@ -52,6 +50,9 @@ class Gra:
         if self.celownik >= (len(self.player.aims)):
             self.celownik = 0
 
+        if self.keys[key.E]:
+            for x in self.area.exits:
+                speak((str(x.name), ':', str(x.x), str(x.y)))
         if self.keys[key.SPACE]:
             if self.modespace == False:
                 self.modespace = True
@@ -155,14 +156,15 @@ class Gra:
 
         if self.keys[key.O]:
             try:
-                for location in self.area.object:
+                for location in self.area.exits:
                     x = abs(location.x - self.player.x)
                     y = abs(location.y - self.player.y)
                     if (x<=3)& (y<=3):
+                        self.area = None
                         self.player.aims.clear()
                         self.player.main_aim = None
                         self.itemcounter.clear()
-                        self.area = location
+                        self.area = location.area
                         location.sound.play()
             except:
                 speak(('gdzie chcesz wejsc?'))
