@@ -20,15 +20,18 @@ class Gra:
         self.tab_focus = counter(self.player.eq)
         self.tab_iter = iter(self.tab_focus)
         self.tab_sound = sounds.tab_sound
-        self.itemcounter = []
+        self.itemcontainer = []
+        self.dooralert = sounds.dooralert
+        self.exitcontainer=[]
 
     def itemadder(self, item):
         itemalert = sounds.itemalert
         itemalert.play()
+        speak((str(item.name)))
         if isinstance(item, Weapon) == True:
-            itemcounter[0] = item
+            self.itemcontainer.insert(0, item)
         else:
-            self.itemcounter.append(item)
+            self.itemcontainer.append(item)
 
 
     def npc_attacks(self, npc):
@@ -49,6 +52,18 @@ class Gra:
 
         if self.celownik >= (len(self.player.aims)):
             self.celownik = 0
+
+        for location in self.area.exits:
+            x = abs(self.player.x - location.x)
+            y = abs(self.player.y - location.y)
+            if (x<=3)&(y<=3):
+                if not location in self.exitcontainer:
+                    self.exitcontainer.append(location)
+                    self.dooralert.play()
+            else:
+                if location in self.exitcontainer:
+                    self.exitcontainer.remove(location)
+
 
         if self.keys[key.E]:
             for x in self.area.exits:
@@ -130,15 +145,17 @@ class Gra:
                 speak((str(i.name)))
 
         if self.keys[key.F]:
-            if len(self.itemcounter) >0:
-                for i in itemcounter:
-                    if i.type in self.player.eq:
-                        self.player.current_weapon.add_ammo(i)
-                        self.area.remove(i)
-                        self.itemcounter.remove(i)
-            else:
-                self.player.add_weapon(i)
-
+            if len(self.itemcontainer) >0:
+                for i in self.itemcontainer:
+#                    try:
+                        if i.type in self.player.eq:
+                            self.player.current_weapon.add_ammo(i)
+                            self.area.remove(i)
+                            self.itemcontainer.remove(i)
+                        else:
+                            self.player.add_weapon(i)
+#                    except:
+#                        pass
 
         if self.keys[key.Z]:
             speak(('x', str(self.player.x), 'y', str(self.player.y)))
@@ -155,21 +172,22 @@ class Gra:
             speak(((self.area.name)))
 
         if self.keys[key.O]:
-            try:
-                for location in self.area.exits:
-                    x = abs(location.x - self.player.x)
-                    y = abs(location.y - self.player.y)
-                    if (x<=3)& (y<=3):
-                        self.area = None
-                        self.player.aims.clear()
-                        self.player.main_aim = None
-                        self.itemcounter.clear()
-                        self.area = location.area
-                        location.sound.play()
-            except:
-                speak(('gdzie chcesz wejsc?'))
-
-
+            if len(self.exitcontainer) >0:
+                self.player.aims.clear()
+                self.player.main_aim = None
+                self.itemcontainer.clear()
+                if self.area in location.exits:
+                    pass
+                else:
+                    self.area.x = 0
+                    self.area.y = 0
+                    location.exits.append(self.area)
+                self.area = self.exitcontainer[0]
+                self.player.x, self.player.y = 0, 0
+                location.sound.play()
+                self.exitcontainer.clear()
+            else:
+                speak(('tutaj nie ma drzwi'))
 
         for i in self.area.npcs:
             x = abs(i.x - self.player.x)
@@ -193,15 +211,15 @@ class Gra:
         self.area.update()
 
         for i in self.area.object:
-        #pentla dodajaca itemy do self.itemcounter
+        #pentla dodajaca itemy do self.itemcontainer
             x = abs(i.x - self.player.x)
             y = abs(i.y - self.player.y)
             if (x==0)&(y==0):
-                if not i in self.itemcounter:
+                if not i in self.itemcontainer:
                     self.itemadder(i)
             if (x>3)&(y>3):
-                if i in self.itemcounter:
-                    self.itemcounter.remove(i)
+                if i in self.itemcontainer:
+                    self.itemcontainer.remove(i)
 
     def moving(self):
         if self.keys[key.UP]:

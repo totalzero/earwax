@@ -10,6 +10,7 @@ aim = pyglet.resource.media('cel.wav', streaming=False)
 tab_sound = pyglet.resource.media('weapons/unduck.wav', streaming=False)
 zoomin = pyglet.resource.media('weapons/snajper/zoomin.wav', streaming=False)
 zoomout = pyglet.resource.media('weapons/snajper/zoomout.wav', streaming=False)
+dooralert = pyglet.resource.media('dooralert.wav', streaming=False)
 
 
 

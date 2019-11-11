@@ -30,7 +30,10 @@ class Player:
         weapon.get_sound.play()
 
 class Area:
-    def __init__(self, desc = '', max_x=100, max_y=100, name = None, object=[], npcs=[], exits=[]):
+    def __init__(self, desc = '', max_x=100, max_y=100, name = None, object=[], npcs=[], exits=[], sound=None, x=0, y=0):
+        self.sound = sound
+        self.x = x
+        self.y = y
         self.exits = exits
         self.max_x = max_x
         self.max_y = max_y
