@@ -3,7 +3,7 @@ from random import randint
 from collections import Counter as counter
 from . import sounds, player, guns, areas
 from .classes import speak
-from .classes import Weapon
+from .classes import Weapon, Ammo, Area
 
 baza = areas.baza1
 
@@ -23,6 +23,11 @@ class Gra:
         self.itemcontainer = []
         self.dooralert = sounds.dooralert
         self.exitcontainer=[]
+        self.shiftcontainer = [self.itemcontainer, self.exitcontainer]
+        self.shiftfocus = self.exitcontainer
+        self.shiftcounter = 0
+        self.focuscounter = 0
+        self.focus = None
 
     def itemadder(self, item):
         itemalert = sounds.itemalert
@@ -32,6 +37,33 @@ class Gra:
             self.itemcontainer.insert(0, item)
         else:
             self.itemcontainer.append(item)
+
+    def next_area(self, area):
+        self.player.aims.clear()
+        self.player.main_aim = None
+        self.itemcontainer.clear()
+        if self.area in area.exits:
+            pass
+        else:
+            self.area.x = 0
+            self.area.y = 0
+            area.exits.append(self.area)
+        self.area = area
+        self.player.x, self.player.y = 0, 0
+        area.sound.play()
+        self.exitcontainer.clear()
+
+
+
+    def action(self, obj):
+        if isinstance(obj, Area)==True:
+            self.next_area(obj)
+        if isinstance(obj, Weapon)==True:
+            self.player.add_weapon(obj)
+        if isinstance(obj, Ammo)==True:
+            if obj.type in self.player.eq:
+                self.player.eq[obj.type].add_ammo(obj)
+
 
 
     def npc_attacks(self, npc):
@@ -53,6 +85,12 @@ class Gra:
         if self.celownik >= (len(self.player.aims)):
             self.celownik = 0
 
+        if self.shiftcounter >=len(self.shiftcontainer):
+            self.shiftcounter = 0
+
+        if self.focuscounter >=len(self.shiftfocus):
+            self.focuscounter = 0
+
         for location in self.area.exits:
             x = abs(self.player.x - location.x)
             y = abs(self.player.y - location.y)
@@ -63,6 +101,20 @@ class Gra:
             else:
                 if location in self.exitcontainer:
                     self.exitcontainer.remove(location)
+
+        if self.keys[key.ENTER]:
+            self.action(self.focus)
+
+
+        if self.keys[key.LSHIFT]:
+            self.shiftfocus = self.shiftcontainer[self.shiftcounter]
+            if self.shiftcounter == 0:
+                speak(('przedmioty na ziemi'))
+            if self.shiftcounter == 1:
+                speak(('wyjscia z lokacji'))
+            self.shiftcounter +=1
+
+
 
 
         if self.keys[key.E]:
@@ -145,17 +197,10 @@ class Gra:
                 speak((str(i.name)))
 
         if self.keys[key.F]:
-            if len(self.itemcontainer) >0:
-                for i in self.itemcontainer:
-#                    try:
-                        if i.type in self.player.eq:
-                            self.player.current_weapon.add_ammo(i)
-                            self.area.remove(i)
-                            self.itemcontainer.remove(i)
-                        else:
-                            self.player.add_weapon(i)
-#                    except:
-#                        pass
+            self.focuscounter +=1
+            self.focus = self.shiftfocus[(self.focuscounter -1)]
+            speak((str(self.focus.name)))
+
 
         if self.keys[key.Z]:
             speak(('x', str(self.player.x), 'y', str(self.player.y)))
