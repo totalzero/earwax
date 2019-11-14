@@ -25,9 +25,12 @@ class Gra:
         self.exitcontainer=[]
         self.shiftcontainer = [self.itemcontainer, self.exitcontainer]
         self.shiftfocus = self.exitcontainer
+        self.sound_shiftfocus = sounds.shiftfocus
         self.shiftcounter = 0
         self.focuscounter = 0
+        self.sound_focus = sounds.focus
         self.focus = None
+
 
     def itemadder(self, item):
         itemalert = sounds.itemalert
@@ -60,6 +63,8 @@ class Gra:
             self.next_area(obj)
         if isinstance(obj, Weapon)==True:
             self.player.add_weapon(obj)
+            self.area.object.remove(obj)
+            self.itemcontainer.remove(obj)
         if isinstance(obj, Ammo)==True:
             if obj.type in self.player.eq:
                 self.player.eq[obj.type].add_ammo(obj)
@@ -107,6 +112,7 @@ class Gra:
 
 
         if self.keys[key.LSHIFT]:
+            self.sound_shiftfocus.play()
             self.shiftfocus = self.shiftcontainer[self.shiftcounter]
             if self.shiftcounter == 0:
                 speak(('przedmioty na ziemi'))
@@ -181,6 +187,8 @@ class Gra:
                 self.tab_sound.play()
             except StopIteration:
                 self.tab_iter = iter(self.tab_focus)
+                self.tab_focus = counter(self.player.eq)
+
 
         if self.keys[key.Q]:
             try:
@@ -197,9 +205,13 @@ class Gra:
                 speak((str(i.name)))
 
         if self.keys[key.F]:
-            self.focuscounter +=1
-            self.focus = self.shiftfocus[(self.focuscounter -1)]
-            speak((str(self.focus.name)))
+            if len(self.shiftfocus)==0:
+                speak(('tutaj nic nie ma'))
+            else:
+                self.sound_focus.play()
+                self.focuscounter +=1
+                self.focus = self.shiftfocus[(self.focuscounter -1)]
+                speak((str(self.focus.name)))
 
 
         if self.keys[key.Z]:
