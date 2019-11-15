@@ -78,6 +78,10 @@ dragunow = {
 'reload':pyglet.resource.media('weapons/dragunow/reload.wav', streaming=False)
 }
 
+medpack = {
+'fire':pyglet.resource.media('weapons/medpack/fire.wav', streaming=False)
+}
+
 grenade ={
 'fire':pyglet.resource.media('weapons/grenade/fire.wav', streaming=False),
 'aimsat':pyglet.resource.media('weapons/grenade/aims_at.wav', streaming=False),

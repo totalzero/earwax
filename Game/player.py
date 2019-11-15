@@ -2,9 +2,9 @@ from . import sounds, guns
 from .classes import Player
 
 step = sounds.step_glowny
-parabellum = guns.parabellum
 beretta = guns.beretta
-beretta.spare_ammunition = [parabellum, parabellum, parabellum, parabellum]
-eq = [beretta]
+beretta.spare_ammunition = 5
+eq = [beretta, guns.knife, guns.grenade, guns.medpack]
+
 player = Player(step=step, eq = eq)
 

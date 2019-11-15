@@ -66,10 +66,17 @@ class Gra:
             self.area.object.remove(obj)
             self.itemcontainer.remove(obj)
         if isinstance(obj, Ammo)==True:
-            if obj.type in self.player.eq:
-                self.player.eq[obj.type].add_ammo(obj)
-
-
+            arg = []
+            for x in self.player.eq:
+                arg.append(x.name)
+            if obj.type in arg:
+                for x in self.player.eq:
+                    if x.name == obj.type:
+                        x.add_ammo()
+                        self.itemcontainer.remove(obj)
+                        self.area.object.remove(obj)
+            else:
+                speak(('nie masz broni do tej amunicji'))
 
     def npc_attacks(self, npc):
         a = bool(randint(0, 1))
@@ -143,27 +150,16 @@ class Gra:
                 pass
 
         if self.keys[key.A]:
-#            try:
-                speak(('posiadasz w magazynku', str(self.player.current_weapon.missiles), 'pociskow'))
-                speak(('do tego posiadasz ', str(len(self.player.current_weapon.spare_ammunition)), 'zapasowych magazynkow'))
-#            except:
-#                speak(('brak amunicji do tej broni'))
+            speak(('posiadasz w magazynku', str(self.player.current_weapon.missiles), 'pociskow'))
+            speak(('do tego posiadasz ', str(self.player.current_weapon.spare_ammunition), 'zapasowych magazynkow'))
 
         if self.keys[key.R]:
-            sprawdzam = False
-            if self.player.current_weapon.is_reload == True:
-                for i in self.player.ammo:
-                    if type(self.player.current_weapon.ammotype) == type(i):
-                        sprawdzam = True
-                        self.player.current_weapon.missiles += i.ammunition
-                        self.player.ammo.remove(i)
-                        break
-                if sprawdzam == True:
-                    self.player.current_weapon.reload_sound.play()
-                else:
-                    speak(('nie posiadasz amunicji do tej broni'))
+            if (self.player.current_weapon.spare_ammunition > 0) & (self.player.current_weapon.is_reload==True):
+                self.player.current_weapon.missiles = self.player.current_weapon.maxbullets
+                self.player.current_weapon.spare_ammunition -=1
+                self.player.current_weapon.reload_sound.play()
             else:
-                speak(('ta bron nie posiada pociskow'))
+                speak(('brak amunicji'))
 
         if self.keys[key.D]:
             for i in self.area.object + self.area.npcs:

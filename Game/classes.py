@@ -86,7 +86,7 @@ class Exit:
 
 
 class Weapon:
-    def __init__(self, name, desc='', missiles = 20, is_reload=True, x=0, y=0, damage=100, get_sound=None, fire_sound=None, reload_sound=None, empty_sound=None, aims_at=None, spare_ammunition=[]):
+    def __init__(self, name, desc='', missiles = 20, is_reload=True, x=0, y=0, damage=100, get_sound=None, fire_sound=None, reload_sound=None, empty_sound=None, aims_at=None, spare_ammunition=0, maxbullets=20):
         self.name = name
         self.desc = desc
         self.missiles = missiles
@@ -100,10 +100,11 @@ class Weapon:
         self.y = y
         self.aims_at = aims_at
         self.spare_ammunition = spare_ammunition
+        self.maxbullets = maxbullets
 
-    def add_ammo(self, ammo):
+    def add_ammo(self):
         getammo = sounds.getammo
-        self.spare_ammunition.append(ammo)
+        self.spare_ammunition +=1
         getammo.play()
 
     def fire(self, player):
@@ -169,12 +170,12 @@ class Knifes(Weapon):
 class Medpack(Weapon):
     def fire(self, player):
         if self.missiles >0:
-            self.fire.play()
+            self.fire_sound.play()
             player.hp = 5000
             self.missiles -=1
             if self.spare_ammunition >0:
                 self.missiles +=1
-                self.spare_ammunitiom.pop()
+                self.spare_ammunition -=1
         else:
             speak(('nie masz apteczek'))
 
@@ -184,7 +185,6 @@ class Grenades(Weapon):
         self.missiles -=1
         if self.spare_ammunition >0:
             self.missiles +=1
-            self.spare_ammunition.pop()
         odtwarzacz = pyglet.media.Player()
         odtwarzacz.queue(self.fire_sound)
         for x in player.aims:
