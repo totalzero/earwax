@@ -17,3 +17,18 @@ skutek tego jest taki, ze bez tego programu o ktorym wspominam powyzej bedzie mn
 
 ogolnie to prosze wszystkich o wyrozumialosc - jest to moj pierwszy projekt, jest on mocno nie doskonaly i pelen bledow, za rowno koncepcyjnych jak i kodowych.
 
+klawiszologia
+z- aktualna pozycja wyrazona w wsp x y
+lctrl - strzal
+llshift - wybor miedzy wyjsciami a przedmiotami na ziemi
+f - przelacza sie po przedmiotach lub wyjsciach - zalerznie od ustawienia lshift
+enter potwierdza wybor, podnosi bron/amunicje, przechodzi do innej lokacji
+q - wybor celu 
+m - nazwa lokacji w jakiej sie znajduje
+h - hp gracza
+n - lista wszystkich npcow w grze wraz z ich aktualnymi wsp
+c - lista objektow na ziemi, czyli broni i amunicji i tak dalej
+e - lista wyjsc wraz z wsp
+a - aktualny poziom amunicji i magazynkow
+tab - zmiana broni
+i - lista przedmiotow w ekwipunku
