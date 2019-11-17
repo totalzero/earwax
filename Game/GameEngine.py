@@ -169,12 +169,12 @@ class Gra:
                     speak((str(self.area.desc)))
 
         if self.keys[key.LCTRL]:
-#            try:
+            try:
                 self.player.current_weapon.fire(self.player)
                 self.tab_focus = counter(self.player.eq)
                 self.tab_iter = iter(self.tab_focus)
-#            except:
-#                pass
+            except:
+                pass
 
         if self.keys[key.TAB]:
             try:

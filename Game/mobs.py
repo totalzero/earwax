@@ -4,7 +4,7 @@ from .classes import Npc
 
 soldier = Npc(name='zolnierz',
 desc='standardowo uzbrojony zolnierz wroga',
-aggresiv=False,
+aggresiv=True,
 walker=True,
 hp=100,
 x=10,

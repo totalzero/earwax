@@ -15,6 +15,7 @@ y=5,
 max_x=25,
 max_y=25,
 sound = sounds.doors[1],
+npcs=[copy.deepcopy(mobs.soldier), copy.deepcopy(mobs.soldier)],
 object = [macarow, ammo_macarow, ammo_macarow, ammo_macarow])
 
 baza1 = Area(name='baza',
@@ -23,6 +24,6 @@ max_x=100,
 max_y=100,
 exits=[posterunek],
 sound = sounds.doors[1],
-npcs=[copy.deepcopy(mobs.soldier)])
+npcs=[copy.deepcopy(mobs.soldier), copy.deepcopy(mobs.soldier), copy.deepcopy(mobs.soldier)])
 
 

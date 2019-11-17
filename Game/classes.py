@@ -189,7 +189,7 @@ class Grenades(Weapon):
         odtwarzacz.queue(self.fire_sound)
         for x in player.aims:
             x.life = False
-            odtwarzacz.queue(x.died[randint(0, 4)])
+            odtwarzacz.queue(x.died[0])
         odtwarzacz.play()
         player.aims.clear()
 
