@@ -1,5 +1,5 @@
 import pyglet
-import Tolk
+from . import Tolk
 from pyglet.window import key
 from random import randint
 from collections import Counter as counter

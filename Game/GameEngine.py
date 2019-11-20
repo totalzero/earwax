@@ -1,15 +1,13 @@
 from pyglet.window import key
 from random import randint
 from collections import Counter as counter
-from . import sounds, player, guns, areas
+from . import sounds, player, guns
 from .classes import speak
 from .classes import Weapon, Ammo, Area
 
-baza = areas.baza1
-
 class Gra:
     """cala logika gry, zawiera obiekty takie jak player, area, map, keys - ktore to sa instancjami klas o tej samej nazwie - obserwuje i nadzoruje wszystkie obiekty w grze, okresla ich wzajemne relacje, odpowiada za wszystko"""
-    def __init__(self, keys, area = baza):
+    def __init__(self, keys, area):
         self.keys = keys
         self.player = player.player
         self.area = area
