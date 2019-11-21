@@ -17,7 +17,7 @@ class Menu:
         self.focuscounter = 0
         self.clicksound = sounds.focus
         self.focussound = sounds.shiftfocus
-        self.trening = GameEngine.Gra(keys=self.keys, area=areas.baza1)
+        self.trening = GameEngine.Gra(keys=self.keys, area=areas.trening)
     def action(self, focus):
         if focus == 'wyjscie':
             pyglet.app.exit()

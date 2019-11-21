@@ -111,6 +111,17 @@ pyglet.resource.media('npc/injured/4.wav', streaming=False)],
 pyglet.resource.media('npc/died/2.wav', streaming=False),
 pyglet.resource.media('npc/died/3.wav', streaming=False),
 pyglet.resource.media('npc/died/4.wav', streaming=False)],
+
+'treninginjured':[pyglet.resource.media('npc/trening/injured/1.wav', streaming=False),
+pyglet.resource.media('npc/trening/injured/2.wav', streaming=False),
+pyglet.resource.media('npc/trening/injured/3.wav', streaming=False),
+pyglet.resource.media('npc/trening/injured/4.wav', streaming=False)],
+
+'treningdied':[pyglet.resource.media('npc/trening/died/1.wav', streaming=False),
+pyglet.resource.media('npc/trening/died/2.wav', streaming=False),
+pyglet.resource.media('npc/trening/died/3.wav', streaming=False),
+pyglet.resource.media('npc/trening/died/4.wav', streaming=False)],
+
 'fire':pyglet.resource.media('npc/fire.wav', streaming=False)
 }
 

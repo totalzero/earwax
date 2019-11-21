@@ -185,6 +185,7 @@ class Grenades(Weapon):
         self.missiles -=1
         if self.spare_ammunition >0:
             self.missiles +=1
+            self.spare_ammunition -=1
         odtwarzacz = pyglet.media.Player()
         odtwarzacz.queue(self.fire_sound)
         for x in player.aims:

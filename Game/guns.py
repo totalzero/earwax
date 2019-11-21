@@ -63,6 +63,7 @@ desc = 'karabin snajperski jednostek specjalnych delta force',
 is_reload=True,
 missiles=10,
 maxbullets=10,
+spare_ammunition=2,
 damage = 1000,
 fire_sound=sounds.barret['fire'],
 get_sound=sounds.barret['get'],
@@ -95,10 +96,11 @@ reload_sound=sounds.pp19['reload'],
 get_sound=sounds.pp19['get'],
 aims_at=sounds.pp19['aimsat'])
 
-grenade = Grenades(name='granat',
+grenade = Grenades(name='granatnik',
 desc='granat jak to granat, nie ma tu co opisywac',
 fire_sound=sounds.grenade['fire'],
 aims_at=sounds.grenade['aimsat'],
+get_sound=sounds.grenade['get'],
 spare_ammunition=5)
 
 medpack = Medpack(name='pakiet medyczny',

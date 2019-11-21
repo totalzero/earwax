@@ -1,6 +1,16 @@
 from . import sounds
 from .classes import Npc
 
+tarcza = Npc(name='cwiczeniowa tarcza strzelecka',
+desc = 'treningowa tarcza strzelecka, na ktorej pocwiczysz strzelanie',
+x = 20,
+y = 20,
+hp = 10,
+walker=False,
+aggresiv=False)
+
+tarcza.injured = sounds.npc['treninginjured']
+tarcza.died = sounds.npc['treningdied']
 
 soldier = Npc(name='zolnierz',
 desc='standardowo uzbrojony zolnierz wroga',

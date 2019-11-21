@@ -160,11 +160,7 @@ class Gra:
                 speak(('brak amunicji'))
 
         if self.keys[key.D]:
-            for i in self.area.object + self.area.npcs:
-                if (i.x == self.player.x)& (i.y == self.player.y):
-                    speak((str(i.desc)))
-                else:
-                    speak((str(self.area.desc)))
+            speak((self.area.desc))
 
         if self.keys[key.LCTRL]:
             try:
@@ -244,14 +240,14 @@ class Gra:
             x = abs(i.x - self.player.x)
             y = abs(i.y - self.player.y)
             if (x <= 5) & (y <=5):
-                if i.walker == True:
+                if not i in self.player.aims:
                     self.alert.play()
                     self.player.aims.append(i)
                     i.walker = False
             else:
-                i.walker = True
                 if i in self.player.aims:
                     self.player.aims.remove(i)
+                    i.walker = True
 
         for x in self.player.aims:
             if x.aggresiv == True:
