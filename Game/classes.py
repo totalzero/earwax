@@ -199,20 +199,44 @@ class Grenades(Weapon):
 #ma to dzialac w ten sposob ze - dodaje sie dzwieki do kolejki(odtwarzacz.queue(dzwiek)), nastepnie na koncu skryptu odpala sie cala kolejke .play()
 
 class Snajper(Weapon):
+    def fire(self, player):
+        miss = bool(randint(0, 1))
+        if self.missiles >0:
+            self.fire_sound.play()
+            self.missiles -=1
+        else:
+            self.empty_sound.play()
+        try:
+            if (player.main_aim == None) or (miss == True) or (self.missiles <=0):
+                pass
+            else:
+                player.main_aim.hp -= randint(1, self.damage)
+                player.main_aim.injured[randint(0, 4)].play()
+                if player.main_aim.hp <=0:
+                    player.main_aim.died[randint(0, 4)].play()
+                    player.main_aim.life = False
+                    player.aims.remove(player.main_aim)
+                    if len(player.aims) > 0:
+                        player.main_aim = player.aims[0]
+                    else:
+                        player.main_aim = None
+        except:
+            pass
+
     def mode(self, player, area, modespace):
         zoomin = sounds.zoomin
         zoomout = sounds.zoomout
         if modespace == True:
-            zoomin.play()
-            for i in area.npcs:
-                if i in player.aims:
-                    pass
-                else:
-                    player.aims.append(i)
-        else:
-            zoomout.play()
             player.aims.clear()
             player.main_aim = None
+            player.aims.extend(area.npcs)
+            zoomin.play()
+        if modespace == False:
+            player.aims.clear()
+            player.main_aim = None
+            zoomout.play()
+
+
 
 class Npc:
     def __init__(self, desc='', aggresiv=False, walker=False, x=0, y=0, hp=100, name='', life=True):

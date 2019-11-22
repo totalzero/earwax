@@ -8,6 +8,7 @@ from .classes import Weapon, Ammo, Area
 class Gra:
     """cala logika gry, zawiera obiekty takie jak player, area, map, keys - ktore to sa instancjami klas o tej samej nazwie - obserwuje i nadzoruje wszystkie obiekty w grze, okresla ich wzajemne relacje, odpowiada za wszystko"""
     def __init__(self, keys, area):
+        self.status = 'game'
         self.keys = keys
         self.player = player.player
         self.area = area
@@ -236,18 +237,20 @@ class Gra:
             else:
                 speak(('tutaj nie ma drzwi'))
 
-        for i in self.area.npcs:
-            x = abs(i.x - self.player.x)
-            y = abs(i.y - self.player.y)
-            if (x <= 5) & (y <=5):
-                if not i in self.player.aims:
-                    self.alert.play()
-                    self.player.aims.append(i)
-                    i.walker = False
-            else:
-                if i in self.player.aims:
-                    self.player.aims.remove(i)
-                    i.walker = True
+
+        if self.modespace == False:
+            for i in self.area.npcs:
+                x = abs(i.x - self.player.x)
+                y = abs(i.y - self.player.y)
+                if (x <= 5) & (y <=5):
+                    if not i in self.player.aims:
+                        self.alert.play()
+                        self.player.aims.append(i)
+                        i.walker = False
+                else:
+                    if i in self.player.aims:
+                        self.player.aims.remove(i)
+                        i.walker = True
 
         for x in self.player.aims:
             if x.aggresiv == True:
@@ -269,6 +272,9 @@ class Gra:
                     self.itemcontainer.remove(i)
 
     def moving(self):
+        if self.player.hp <=0:
+            self.status = 'menu'
+
         if self.keys[key.UP]:
             if self.player.y <= self.area.max_y:
                 self.player.y +=1

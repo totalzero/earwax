@@ -9,6 +9,7 @@ pyglet.options['search_local_libs'] = True
 
 class Menu:
     def __init__(self, keys):
+        self.status = 'game'
         self.keys = keys
         self.main_menu = ['graj', 'wyjscie']
         self.current_menu = self.main_menu
@@ -52,6 +53,12 @@ class Menu:
     def moving(self):
         pass
 
+class GameOver(Menu):
+    def update(self):
+        if self.keys[key.ENTER]:
+            startgame(Menu(keys=Keys))
+        else:
+            speak(('przegrales, wcisnij enter aby przejsc do glownego menu'))
 
 Keys = key.KeyStateHandler()
 game_window = pyglet.window.Window()
@@ -69,9 +76,13 @@ def startgame(mission):
 
 
 def moving(dt):
+    global game
     game.moving()
+    if game.status == 'gameover':
+        game = GameOver(keys=Keys)
 
 def update(dt):
+    global game
     game.update()
 
 
