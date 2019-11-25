@@ -273,7 +273,7 @@ class Gra:
 
     def moving(self):
         if self.player.hp <=0:
-            self.status = 'menu'
+            self.status = 'gameover'
 
         if self.keys[key.UP]:
             if self.player.y <= self.area.max_y:
