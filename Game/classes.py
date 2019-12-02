@@ -14,7 +14,8 @@ def speak(args):
 
 class Player:
     """glowna gracza definiujaca playera, zawiera obsluge ekwipunku, pozycji (x y), hp, exp, cele(aim i main aim), oraz obsluge dzwieku krokow"""
-    def __init__(self, x=0, y=0, step=[], eq = [], hp=500, aims=[], main_aim=None, current_weapon=None):
+    def __init__(self, x=0, y=0, step=[], eq = [], hp=500, aims=[], main_aim=None, current_weapon=None, special=-1):
+        self.special = special
         self.x = 0
         self.y = 0
         self.step = step
@@ -84,6 +85,11 @@ class Exit:
         self.area = area
         self.sound = sound
 
+class SpecialObject:
+    def __init__(self, name = 'skrzynka', x=0, y=0):
+        self.name = name
+        self.x = x
+        self.y = y
 
 class Weapon:
     def __init__(self, name, desc='', missiles = 20, is_reload=True, x=0, y=0, damage=100, get_sound=None, fire_sound=None, reload_sound=None, empty_sound=None, aims_at=None, spare_ammunition=0, maxbullets=20):
@@ -123,6 +129,8 @@ class Weapon:
                 if player.main_aim.hp <=0:
                     player.main_aim.died[randint(0, 4)].play()
                     player.main_aim.life = False
+                    if player.main_aim.special == True:
+                        player.special +=1
                     player.aims.remove(player.main_aim)
                     if len(player.aims) > 0:
                         player.main_aim = player.aims[0]
@@ -151,21 +159,21 @@ class Carabines(Weapon):
 
 class Knifes(Weapon):
     def fire(self, player):
+        fire1 = pyglet.resource.media('weapons/knife/1.wav', streaming=False)
         miss = bool(randint(0, 1))
-        self.fire_sound.play()
-        try:
-            if (player.main_aim == None) or (miss == True) or (self.missiles <=0):
-                pass
-            else:
-                player.main_aim.hp -= randint(1, self.damage)
-                player.main_aim.injured[randint(0, 4)].play()
-                if player.main_aim.hp <=0:
-                    player.main_aim.life = False
-                    player.main_aim.died[randint(0, 4)].play()
-                    player.aims.remove(player.main_aim)
-                    player.main_aim = None
-        except:
-            pass
+        if (player.main_aim == None) or (miss == True) or (self.missiles <=0):
+            self.fire_sound.play()
+        else:
+            fire1.play()
+            player.main_aim.hp -= randint(1, self.damage)
+            player.main_aim.injured[randint(0, 4)].play()
+            if player.main_aim.hp <=0:
+                player.main_aim.life = False
+                if player.main_aim.special == True:
+                    player.special +=1
+                player.main_aim.died[randint(0, 4)].play()
+                player.aims.remove(player.main_aim)
+                player.main_aim = None
 
 class Medpack(Weapon):
     def fire(self, player):
@@ -190,6 +198,8 @@ class Grenades(Weapon):
         odtwarzacz.queue(self.fire_sound)
         for x in player.aims:
             x.life = False
+            if x.special == True:
+                player.special +=1
             odtwarzacz.queue(x.died[0])
         odtwarzacz.play()
         player.aims.clear()
@@ -215,6 +225,8 @@ class Snajper(Weapon):
                 if player.main_aim.hp <=0:
                     player.main_aim.died[randint(0, 4)].play()
                     player.main_aim.life = False
+                    if player.main_aim.special == True:
+                        player.special +=1
                     player.aims.remove(player.main_aim)
                     if len(player.aims) > 0:
                         player.main_aim = player.aims[0]
@@ -239,7 +251,8 @@ class Snajper(Weapon):
 
 
 class Npc:
-    def __init__(self, desc='', aggresiv=False, walker=False, x=0, y=0, hp=100, name='', life=True):
+    def __init__(self, desc='', aggresiv=False, walker=False, special=False, x=0, y=0, hp=100, name='', life=True):
+        self.special = special
         self.npc_attacks = sounds.npc['fire']
         self.name = name
         self.desc = desc

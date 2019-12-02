@@ -3,14 +3,16 @@ from random import randint
 from collections import Counter as counter
 from . import sounds, player, guns
 from .classes import speak
-from .classes import Weapon, Ammo, Area
+from .classes import Weapon, Ammo, Area, SpecialObject
 
 class Gra:
     """cala logika gry, zawiera obiekty takie jak player, area, map, keys - ktore to sa instancjami klas o tej samej nazwie - obserwuje i nadzoruje wszystkie obiekty w grze, okresla ich wzajemne relacje, odpowiada za wszystko"""
-    def __init__(self, keys, area):
+    def __init__(self, keys, area, special, tasklog=''):
+        self.tasklog = tasklog
         self.status = 'game'
         self.keys = keys
         self.player = player.player
+        self.player.special = special
         self.area = area
         self.stepping = 0
         self.alert = sounds.aim
@@ -60,6 +62,10 @@ class Gra:
     def action(self, obj):
         if isinstance(obj, Area)==True:
             self.next_area(obj)
+        if isinstance(obj, SpecialObject)==True:
+            self.player.special +=1
+            self.area.object.remove(obj)
+            self.itemcontainer.remove(obj)
         if isinstance(obj, Weapon)==True:
             self.player.add_weapon(obj)
             self.area.object.remove(obj)
@@ -88,6 +94,8 @@ class Gra:
                 speak(('jestes pod ostrzalem'))
 
     def update(self):
+        if self.player.special >=0:
+            self.status = 'win'
         self.area.update()
 
         if self.stepping >= (len(self.player.step)-1):
@@ -112,6 +120,9 @@ class Gra:
             else:
                 if location in self.exitcontainer:
                     self.exitcontainer.remove(location)
+
+        if self.keys[key.X]:
+            speak((self.tasklog))
 
         if self.keys[key.ENTER]:
             self.action(self.focus)

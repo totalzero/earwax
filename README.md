@@ -32,3 +32,4 @@ e - lista wyjsc wraz z wsp
 a - aktualny poziom amunicji i magazynkow
 tab - zmiana broni
 i - lista przedmiotow w ekwipunku
+x - cele misji

@@ -18,7 +18,11 @@ granat.x, granat.y = 10, 10
 
 barret = copy.deepcopy(guns.dragunow)
 barret.x, barret.y = 10, 10
-
+tarcza_win = copy.deepcopy(mobs.tarcza)
+tarcza_win.special = True
+tarcza_win.x, tarcza_win.y = 100, 100
+tarcza_win.name = 'ogromna tarcza'
+tarcza_win.hp = 50
 tarczasnajper1 = copy.deepcopy(mobs.tarcza)
 tarczasnajper2 = copy.deepcopy(mobs.tarcza)
 tarczasnajper3 = copy.deepcopy(mobs.tarcza)
@@ -76,10 +80,11 @@ npcs=[tarcza1, tarcza2, tarcza3],
 object = [macarow, ammo_macarow, ammo_macarow, ammo_macarow])
 
 trening = Area(name='glowny budynek treningowy',
-desc = 'Witaj w grze, zadaniem tej misji jest abys przecwiczyl sobie klawisze i granie - pomoze ci to w wypelnianiu pozostalych misji ktore na ciebie czekaja, najpierw jednak zapoznaj sie z klawiszem Z - jest to twoja obecna pozycja na mapie, pod klawiszem E masz wszystkie budynki do ktorych mozesz wejsc, pod klawiszem c - bronie i wyposarzenie, a klawisz n powie ci jacy przeciwnicy sa w obecnej lokacji. klawisze strzalek sprawia, ze sie poruszysz, wiec moze przejdz do najblizej ciebie polozonego budynkowi w ktorym odbedziesz nastepny trening.',
+desc = 'Witaj w grze, zadaniem tej misji jest abys przecwiczyl sobie klawisze i granie - pomoze ci to w wypelnianiu pozostalych misji ktore na ciebie czekaja, najpierw jednak zapoznaj sie z klawiszem Z - jest to twoja obecna pozycja na mapie, pod klawiszem E masz wszystkie budynki do ktorych mozesz wejsc, pod klawiszem c - bronie i wyposarzenie, a klawisz n powie ci jacy przeciwnicy sa w obecnej lokacji. klawisze strzalek sprawia, ze sie poruszysz, wiec moze przejdz do najblizej ciebie polozonego budynkowi w ktorym odbedziesz nastepny trening. jak zakonczysz juz wszystkie treningi, albo po prostu jakbys chcial zaliczyc odrazu to zadanie, to idz i zastrzel tarcze na koncu tego pokoju.',
 max_x=100,
 max_y=100,
 exits=[trening_pistolet, trening_karabin, trening_granat, trening_snajper],
+npcs =[tarcza_win],
 sound = sounds.doors[1])
 
 

@@ -18,7 +18,7 @@ class Menu:
         self.focuscounter = 0
         self.clicksound = sounds.focus
         self.focussound = sounds.shiftfocus
-        self.trening = GameEngine.Gra(keys=self.keys, area=areas.trening)
+        self.trening = GameEngine.Gra(keys=self.keys, area=areas.trening, special=-1, tasklog='zestrzel ogromna tarcze')
     def action(self, focus):
         if focus == 'wyjscie':
             pyglet.app.exit()
@@ -53,6 +53,13 @@ class Menu:
     def moving(self):
         pass
 
+class GameWin(Menu):
+    def update(self):
+        if self.keys[key.ENTER]:
+            startgame(Menu(keys=Keys))
+        else:
+            speak(('gratulacje, ukonczyles ta misje, wcisnij enter aby przejsc do menu glownego'))
+
 class GameOver(Menu):
     def update(self):
         if self.keys[key.ENTER]:
@@ -80,7 +87,8 @@ def moving(dt):
     game.moving()
     if game.status == 'gameover':
         game = GameOver(keys=Keys)
-
+    if game.status == 'win':
+        game = GameWin(keys=Keys)
 def update(dt):
     global game
     game.update()
@@ -89,8 +97,20 @@ def update(dt):
 @game_window.event
 def on_draw():
     game_window.clear()
+    game_window.set_caption('earwax game fps')
 
 
 pyglet.clock.schedule_interval(moving, 0.3)
 pyglet.clock.schedule_interval(update, 0.1)
 pyglet.app.run()
+
+"""wrzocam to tutaj, male wytlumaczenie co do mechanizmu zadan i wygrywania.
+generalnie zakladam ze beda zadania trzech typow:
+zabij wszystkich, zdobac cos tam i zabij konkretnego npca.
+aby uporac sie z tym zadaniem i nie wchodzic w jakies dlugie kodowanie skomplikowanych zalerznosci - bla bla zrobilem tak:
+powstala specjalna klasa SpecialObject oraz dodatkowy atrybut dla npc - special i dla klasy player(gracza) - special.
+atrybut special dla playera jest ustawiany z klasy Gra - poprzez inicjalizacje tejze - ona rowniez posiada atrybut special, ten special jest przekazywany do instancji klasy player i... wlasnie.
+co to znaczy - oznacza ilosc obiektow do zdobycia wyrazona w liczbie ujemnej, czyli jezeli:
+mamy za zadanie - zdobyc cos tam, skrzynke, tarcze, glowice nuklearna... cokolwiek, tworzymy specialobiekt z odpowiednia nazwa i umieszczamy go w area.object.
+albo jezeli mamy do zabicia jakiegos npca aby zaliczyc misje - zmieniamy atrybut moba, lub tworzymy moba z atrybutem special jako True.
+w grze jest mechanizm ktory dodaje wszystkie speciale do siebie - gdy ich liczba osiagnie 0 (przypominam jest minusowa, jezeli nie bedzie na minusie to misja nigdy sie nie zaliczy) - wtedy zaliczy nam misje i przeniesie nas do okna GameWin."""
