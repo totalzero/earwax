@@ -60,6 +60,8 @@ class Gra:
 
 
     def action(self, obj):
+        if obj == None:
+            speak(('co chcesz zrobic?'))
         if isinstance(obj, Area)==True:
             self.next_area(obj)
         if isinstance(obj, SpecialObject)==True:
@@ -70,6 +72,8 @@ class Gra:
             self.player.add_weapon(obj)
             self.area.object.remove(obj)
             self.itemcontainer.remove(obj)
+            self.tab_focus = counter(self.player.eq)
+            self.tab_iter = iter(self.tab_focus)
         if isinstance(obj, Ammo)==True:
             arg = []
             for x in self.player.eq:
@@ -96,6 +100,7 @@ class Gra:
     def update(self):
         if self.player.special >=0:
             self.status = 'win'
+
         self.area.update()
 
         if self.stepping >= (len(self.player.step)-1):
@@ -121,13 +126,6 @@ class Gra:
                 if location in self.exitcontainer:
                     self.exitcontainer.remove(location)
 
-        if self.keys[key.X]:
-            speak((self.tasklog))
-
-        if self.keys[key.ENTER]:
-            self.action(self.focus)
-
-
         if self.keys[key.LSHIFT]:
             self.sound_shiftfocus.play()
             self.shiftfocus = self.shiftcontainer[self.shiftcounter]
@@ -137,8 +135,21 @@ class Gra:
                 speak(('wyjscia z lokacji'))
             self.shiftcounter +=1
 
+        if self.keys[key.F]:
+            if len(self.shiftfocus)==0:
+                speak(('tutaj nic nie ma'))
+            else:
+                self.sound_focus.play()
+                self.focuscounter +=1
+                self.focus = self.shiftfocus[(self.focuscounter -1)]
+                speak((str(self.focus.name)))
 
+        if self.keys[key.X]:
+            speak((self.tasklog))
 
+        if self.keys[key.ENTER]:
+            self.action(self.focus)
+            self.focus = None
 
         if self.keys[key.E]:
             for x in self.area.exits:
@@ -179,6 +190,7 @@ class Gra:
                 self.player.current_weapon.fire(self.player)
                 self.tab_focus = counter(self.player.eq)
                 self.tab_iter = iter(self.tab_focus)
+                self.area.update()
             except:
                 pass
 
@@ -206,23 +218,13 @@ class Gra:
             for i in self.player.eq:
                 speak((str(i.name)))
 
-        if self.keys[key.F]:
-            if len(self.shiftfocus)==0:
-                speak(('tutaj nic nie ma'))
-            else:
-                self.sound_focus.play()
-                self.focuscounter +=1
-                self.focus = self.shiftfocus[(self.focuscounter -1)]
-                speak((str(self.focus.name)))
-
-
         if self.keys[key.Z]:
             speak(('x', str(self.player.x), 'y', str(self.player.y)))
 
         if self.keys[key.N]:
             for i in self.area.npcs:
                 speak((str(i.name),':', str(i.x), str(i.y)))
-
+            speak(('przeciwnikow w tej lokacji:', len(self.area.npcs), 'w twoim zasiegu:', len(self.player.aims)))
         if self.keys[key.C]:
             for i in self.area.object:
                 speak((str(i.name), 'x:', str(i.x), 'y:', str(i.y)))
@@ -293,7 +295,7 @@ class Gra:
                 self.stepping +=1
 
         if self.keys[key.DOWN]:
-            if self.player.x >=0:
+            if self.player.y >0:
                 self.player.step[self.stepping].play()
                 self.stepping +=1
                 self.player.y -=1
@@ -301,7 +303,7 @@ class Gra:
                     self.player.y = 0
 
         if self.keys[key.LEFT]:
-            if self.player.x >=0:
+            if self.player.x >0:
                 self.player.x -=1
                 self.player.step[self.stepping].play()
                 self.stepping +=1

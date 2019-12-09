@@ -3,7 +3,7 @@ from Game import areas, sounds, GameEngine
 from pyglet.window import key
 
 speak = GameEngine.speak
-
+speak(('earwax game fps, menu glowne'))
 pyglet.options['search_local_libs'] = True
 
 

@@ -5,6 +5,8 @@ projekt napisany w calosci w pythonie, wykorzystuje biblioteke pyglet
 http://pyglet.org/
 do komunikacji z screenreaderami wykorzystalem biblioteke Tolk
 https://github.com/dkager/tolk
+do utworzenia pliku exe wykorzystalem auto py to exe
+https://pypi.org/project/auto-py-to-exe/
 Uwaga!!!
 koniecznie trzeba miec zainstalowanego screenreadera - np. nvda
 https://www.nvda.pl

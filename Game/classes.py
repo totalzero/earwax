@@ -129,6 +129,8 @@ class Weapon:
                 if player.main_aim.hp <=0:
                     player.main_aim.died[randint(0, 4)].play()
                     player.main_aim.life = False
+                    player.aims.remove(player.main_aim)
+                    player.main_aim = None
                     if player.main_aim.special == True:
                         player.special +=1
                     player.aims.remove(player.main_aim)
@@ -169,6 +171,7 @@ class Knifes(Weapon):
             player.main_aim.injured[randint(0, 4)].play()
             if player.main_aim.hp <=0:
                 player.main_aim.life = False
+                player.aims.remove(player.main_aim)
                 if player.main_aim.special == True:
                     player.special +=1
                 player.main_aim.died[randint(0, 4)].play()
