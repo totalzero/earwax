@@ -4,6 +4,7 @@ pyglet.resource.path = ['/Resources', '../Resources', 'Resources']
 pyglet.resource.reindex()
 
 #inicjacja wszystkich dzwiekow w grze
+specialobj = pyglet.resource.media('specialobj.wav', streaming=False)
 itemalert = pyglet.resource.media('itemalert.wav', streaming=False)
 getammo = pyglet.resource.media('getammo.wav', streaming=False)
 aim = pyglet.resource.media('cel.wav', streaming=False)

@@ -31,7 +31,7 @@ class Player:
         weapon.get_sound.play()
 
 class Area:
-    def __init__(self, desc = '', max_x=100, max_y=100, name = None, object=[], npcs=[], exits=[], sound=None, x=0, y=0):
+    def __init__(self, desc = '', max_x=100, max_y=100, name = None, object=[], npcs=[], exits=[], sound=sounds.doors[1], x=0, y=0):
         self.sound = sound
         self.x = x
         self.y = y
@@ -86,10 +86,11 @@ class Exit:
         self.sound = sound
 
 class SpecialObject:
-    def __init__(self, name = 'skrzynka', x=0, y=0):
+    def __init__(self, name = 'skrzynka', x=0, y=0, sound = sounds.specialobj):
         self.name = name
         self.x = x
         self.y = y
+        self.sound = sound
 
 class Weapon:
     def __init__(self, name, desc='', missiles = 20, is_reload=True, x=0, y=0, damage=100, get_sound=None, fire_sound=None, reload_sound=None, empty_sound=None, aims_at=None, spare_ammunition=0, maxbullets=20):
@@ -172,6 +173,10 @@ class Knifes(Weapon):
             if player.main_aim.hp <=0:
                 player.main_aim.life = False
                 player.aims.remove(player.main_aim)
+                if len(player.aims) > 0:
+                    player.main_aim = player.aims[0]
+                else:
+                    player.main_aim = None
                 if player.main_aim.special == True:
                     player.special +=1
                 player.main_aim.died[randint(0, 4)].play()
@@ -192,20 +197,23 @@ class Medpack(Weapon):
 
 class Grenades(Weapon):
     def fire(self, player):
-        player.main_aim = None
-        self.missiles -=1
-        if self.spare_ammunition >0:
-            self.missiles +=1
-            self.spare_ammunition -=1
-        odtwarzacz = pyglet.media.Player()
-        odtwarzacz.queue(self.fire_sound)
-        for x in player.aims:
-            x.life = False
-            if x.special == True:
-                player.special +=1
-            odtwarzacz.queue(x.died[0])
-        odtwarzacz.play()
-        player.aims.clear()
+        if self.missiles <=0:
+            speak(('nie masz granatow'))
+        else:
+            player.main_aim = None
+            self.missiles -=1
+            if self.spare_ammunition >0:
+                self.missiles +=1
+                self.spare_ammunition -=1
+            odtwarzacz = pyglet.media.Player()
+            odtwarzacz.queue(self.fire_sound)
+            for x in player.aims:
+                x.life = False
+                if x.special == True:
+                    player.special +=1
+                odtwarzacz.queue(x.died[0])
+            odtwarzacz.play()
+            player.aims.clear()
 
 #male wytlumaczenie do kodu powyzej
 #tutaj obsluga dzwieku jest poprzez klase Player(), dlatego ze nie wiem juz kompletnie jak zrobic, zeby dzwiek umierania npc byl w calosci po dzwieku wybuchu granatu
@@ -220,10 +228,10 @@ class Snajper(Weapon):
         else:
             self.empty_sound.play()
         try:
-            if (player.main_aim == None) or (miss == True) or (self.missiles <=0):
+            if (player.main_aim == None) or (self.missiles <=0):
                 pass
             else:
-                player.main_aim.hp -= randint(1, self.damage)
+                player.main_aim.hp -= randint(51, self.damage)
                 player.main_aim.injured[randint(0, 4)].play()
                 if player.main_aim.hp <=0:
                     player.main_aim.died[randint(0, 4)].play()

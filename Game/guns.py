@@ -105,6 +105,7 @@ desc='granat jak to granat, nie ma tu co opisywac',
 fire_sound=sounds.grenade['fire'],
 aims_at=sounds.grenade['aimsat'],
 get_sound=sounds.grenade['get'],
+missiles = 3,
 spare_ammunition=5)
 
 medpack = Medpack(name='pakiet medyczny',

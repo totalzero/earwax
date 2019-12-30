@@ -1,3 +1,4 @@
+import copy
 from pyglet.window import key
 from random import randint
 from collections import Counter as counter
@@ -46,17 +47,26 @@ class Gra:
         self.player.aims.clear()
         self.player.main_aim = None
         self.itemcontainer.clear()
-        if self.area in area.exits:
-            pass
-        else:
-            self.area.x = 0
-            self.area.y = 0
-            area.exits.append(self.area)
+        self.exitcontainer.clear()
+        duble = 0
+        if len(area.exits) == 0:
+            are = copy.deepcopy(self.area)
+            are.x, are.y = 0, 0
+            area.exits.append(are)
+        for i in area.exits:
+            if i.name == self.area.name:
+                duble +=1
+        if duble < 1:
+            are = copy.deepcopy(self.area)
+            are.x, are.y = 0, 0
+            area.exits.append(are)
+
         self.area = area
         self.player.x, self.player.y = 0, 0
+        for x in self.area.exits:
+            if x.name == self.area.name:
+                self.area.exits.remove(x)
         area.sound.play()
-        self.exitcontainer.clear()
-
 
 
     def action(self, obj):
@@ -66,8 +76,10 @@ class Gra:
             self.next_area(obj)
         if isinstance(obj, SpecialObject)==True:
             self.player.special +=1
+            obj.sound.play()
             self.area.object.remove(obj)
             self.itemcontainer.remove(obj)
+
         if isinstance(obj, Weapon)==True:
             self.player.add_weapon(obj)
             self.area.object.remove(obj)
@@ -125,6 +137,9 @@ class Gra:
             else:
                 if location in self.exitcontainer:
                     self.exitcontainer.remove(location)
+
+        if self.keys[key.S]:
+            speak((self.player.special))
 
         if self.keys[key.LSHIFT]:
             self.sound_shiftfocus.play()
