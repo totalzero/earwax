@@ -14,7 +14,7 @@ def speak(args):
 
 class Player:
     """glowna gracza definiujaca playera, zawiera obsluge ekwipunku, pozycji (x y), hp, exp, cele(aim i main aim), oraz obsluge dzwieku krokow"""
-    def __init__(self, x=0, y=0, step=[], eq = [], hp=500, aims=[], main_aim=None, current_weapon=None, special=-1):
+    def __init__(self, x=0, y=0, step=[], eq = [], hp=100, aims=[], main_aim=None, current_weapon=None, special=-1):
         self.special = special
         self.x = 0
         self.y = 0
@@ -187,7 +187,7 @@ class Medpack(Weapon):
     def fire(self, player):
         if self.missiles >0:
             self.fire_sound.play()
-            player.hp = 5000
+            player.hp = 100
             self.missiles -=1
             if self.spare_ammunition >0:
                 self.missiles +=1

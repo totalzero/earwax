@@ -19,6 +19,9 @@ skutek tego jest taki, ze bez tego programu o ktorym wspominam powyzej bedzie mn
 
 ogolnie to prosze wszystkich o wyrozumialosc - jest to moj pierwszy projekt, jest on mocno nie doskonaly i pelen bledow, za rowno koncepcyjnych jak i kodowych.
 
+Drogi profesjonalny programisto, zanim zajrzysz w kod tego nieszczesnego projektu - zazyj porzadna dawke czegos na uspokojenie.
+Bardzo bym nie chcial miec cie na sumieniu przez moj kod.
+
 klawiszologia
 z- aktualna pozycja wyrazona w wsp x y
 lctrl - strzal

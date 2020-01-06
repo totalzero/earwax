@@ -13,6 +13,7 @@ class Gra:
         self.status = 'game'
         self.keys = keys
         self.player = player.player
+        self.player.hp = 100
         self.player.special = special
         self.area = area
         self.stepping = 0
