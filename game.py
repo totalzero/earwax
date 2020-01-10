@@ -14,12 +14,13 @@ class Menu:
         self.main_menu = ['graj', 'wyjscie']
         self.current_menu = self.main_menu
         self.focus = self.current_menu[0]
-        self.mission_menu = ['trening', 'misja1', 'powrot']
+        self.mission_menu = ['trening', 'misja1', 'misja2', 'powrot']
         self.focuscounter = 0
         self.clicksound = sounds.focus
         self.focussound = sounds.shiftfocus
         self.trening = GameEngine.Gra(keys=self.keys, area=areas.trening, special=-1, tasklog='zestrzel ogromna tarcze')
         self.misja1 = GameEngine.Gra(keys = self.keys, area = areas.misja1_drogadomiasta, special = -1, tasklog='zrob rekonesans, zajrzyj w kazda dziuple, kazdy pokoj, wyeliminuj wszystkich wrogow')
+        self.misja2 = GameEngine.Gra(keys=self.keys, area=areas.misja2_ulica_start, special=-4, tasklog='znajdz i zneutralizuj wszystkie bomby')
     def action(self, focus):
         if focus == 'wyjscie':
             pyglet.app.exit()
@@ -31,6 +32,8 @@ class Menu:
             startgame(self.trening)
         if focus == 'misja1':
             startgame(self.misja1)
+        if focus == 'misja2':
+            startgame(self.misja2)
 
 
     def update(self):

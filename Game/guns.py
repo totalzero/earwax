@@ -171,3 +171,9 @@ x=0,
 y=0,
 type=ak47.name)
 
+pp19ammo = Ammo(name = 'amunicja do pp19',
+x = 10,
+y = 10,
+desc = 'amunicja do pistoletu maszynowego pp19 bizon',
+bullets = 64,
+type = pp19.name)

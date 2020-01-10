@@ -15,6 +15,7 @@ granatnik = copy.deepcopy(guns.grenade)
 granat = copy.deepcopy(guns.granatammo)
 granatnik.x, granatnik.y = 10, 10
 granat.x, granat.y = 10, 10
+granatnik.spare_ammunition = 5
 
 barret = copy.deepcopy(guns.dragunow)
 barret.x, barret.y = 10, 10
@@ -232,4 +233,301 @@ y = 0,
 object = [],
 npcs = [copy.deepcopy(gang), copy.deepcopy(gang)],
 exits = [misja1_budynek1, misja1_budynek2, misja1_budynek3, misja1_ulicanaplac])
+
+"""misja 2 - szpital, bomby"""
+bomba = SpecialObject(name='bomba',
+x = 25,
+y = 25)
+dragunow = barret
+dragunow.spare_ammunition = 15
+pp = guns.pp19
+pp.spare_ammunition = 15
+medpack = guns.medpackammo
+dragammo = guns.dragunowammo
+ppammo = guns.pp19ammo
+
+gang2 = gang
+terrorysta2 = terrorysta
+saper = mobs.soldier
+saper.name = 'saper'
+saper.hp = 1000
+saper.x, saper.y = 25, 25
+gang2.x, gang2.y = randint(0, 50), randint(0, 50)
+terrorysta.x, terrorysta.y = randint(0, 50), randint(0, 50)
+
+NazPok = {1:'pokoj1', 2:'pokoj2', 3:'pokoj3', 4:'pokoj4', 5:'pokoj5', 6:'pokoj6', 7:'pokoj7', 8:'pokoj8', 9:'pokoj9', 10:'pokoj10'}
+pok10_pietro3 = Area(name=NazPok[10],
+desc = 'pokoj',
+x = 0,
+y = 100,
+object = [copy.deepcopy(medpack), copy.deepcopy(akammo)],
+npcs = [copy.deepcopy(terrorysta2), copy.deepcopy(gang2), copy.deepcopy(terrorysta2)],
+exits=[])
+pok09_pietro3 = Area(name=NazPok[9],
+desc = 'pokoj',
+x = 0,
+y = 90,
+object = [copy.deepcopy(ppammo)],
+npcs = [copy.deepcopy(terrorysta2), copy.deepcopy(gang2), copy.deepcopy(terrorysta2)],
+exits=[])
+pok08_pietro3 = Area(name=NazPok[8],
+desc = 'pokoj',
+x = 0,
+y = 80,
+object = [],
+npcs = [copy.deepcopy(terrorysta2), copy.deepcopy(terrorysta2)],
+exits = [])
+pok07_pietro3 = Area(name=NazPok[7],
+desc = '',
+x = 0,
+y = 70,
+object = [copy.deepcopy(medpack)],
+npcs = [copy.deepcopy(terrorysta2), copy.deepcopy(terrorysta2)],
+exits = [])
+pok06_pietro3 = Area(name = NazPok[6],
+desc = '',
+x = 0,
+y = 60,
+object = [],
+npcs = [copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2)],
+exits = [])
+pok05_pietro3 = Area(name = NazPok[5],
+desc = '',
+x = 0,
+y = 50,
+object = [copy.deepcopy(bomba), copy.deepcopy(medpack)],
+npcs = [copy.deepcopy(saper)],
+exits = [])
+pok04_pietro3 = Area(name = NazPok[4],
+desc = 'pokoj',
+x = 0,
+y = 40,
+object = [copy.deepcopy(akammo)],
+npcs = [copy.deepcopy(terrorysta2), copy.deepcopy(gang2)],
+exits = [])
+pok03_pietro3 = Area(name = NazPok[3],
+desc = '',
+x = 0,
+y = 30,
+object = [copy.deepcopy(medpack)],
+npcs = [],
+exits = [])
+pok02_pietro3 = Area(name = NazPok[2],
+desc = 'pokoj',
+x = 0,
+y = 20,
+object = [copy.deepcopy(medpack), copy.deepcopy(ppammo), copy.deepcopy(ppammo), copy.deepcopy(akammo), copy.deepcopy(akammo),],
+npcs = [],
+exits= [])
+pok01_pietro3 = Area(name = NazPok[1],
+desc = 'pokoj',
+x = 0,
+y = 10,
+object = [copy.deepcopy(medpack), copy.deepcopy(medpack), copy.deepcopy(medpack)],
+npcs = [],
+exits = [])
+
+pietro3 = Area(name = 'pietro trzecie',
+desc = 'idziesz po trzecim pietrze tego wielkiego szpitala',
+max_x = 100,
+max_y = 100,
+x = 0,
+y = 60,
+object = [],
+npcs = [copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(terrorysta2)],
+exits = [pok10_pietro3, pok09_pietro3, pok08_pietro3, pok07_pietro3, pok06_pietro3, pok05_pietro3, pok04_pietro3, pok03_pietro3, pok02_pietro3, pok01_pietro3])
+
+pok10_pietro2 = Area(name=NazPok[10],
+desc = 'pokoj',
+x = 0,
+y = 100,
+object = [copy.deepcopy(bomba), copy.deepcopy(granat), copy.deepcopy(granat), copy.deepcopy(granat)],
+npcs = [copy.deepcopy(saper)],
+exits=[])
+pok09_pietro2 = Area(name=NazPok[9],
+desc = 'pokoj',
+x = 0,
+y = 90,
+object = [copy.deepcopy(ppammo)],
+npcs = [copy.deepcopy(gang2)],
+exits=[])
+pok08_pietro2 = Area(name=NazPok[8],
+desc = 'pokoj',
+x = 0,
+y = 80,
+object = [copy.deepcopy(akammo)],
+npcs = [copy.deepcopy(gang2), copy.deepcopy(gang2)],
+exits = [])
+pok07_pietro2 = Area(name=NazPok[7],
+desc = '',
+x = 0,
+y = 70,
+object = [],
+npcs = [copy.deepcopy(gang2)],
+exits = [])
+pok06_pietro2 = Area(name = NazPok[6],
+desc = '',
+x = 0,
+y = 60,
+object = [],
+npcs = [copy.deepcopy(gang2), copy.deepcopy(terrorysta2)],
+exits = [])
+pok05_pietro2 = Area(name = NazPok[5],
+desc = '',
+x = 0,
+y = 50,
+object = [],
+npcs = [],
+exits = [])
+pok04_pietro2 = Area(name = NazPok[4],
+desc = 'pokoj',
+x = 0,
+y = 40,
+object = [copy.deepcopy(medpack), copy.deepcopy(medpack)],
+npcs = [copy.deepcopy(terrorysta2)],
+exits = [])
+pok03_pietro2 = Area(name = NazPok[3],
+desc = '',
+x = 0,
+y = 30,
+object = [],
+npcs = [copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(terrorysta2)],
+exits = [])
+pok02_pietro2 = Area(name = NazPok[2],
+desc = 'pokoj',
+x = 0,
+y = 20,
+object = [copy.deepcopy(dragammo), copy.deepcopy(ppammo), copy.deepcopy(akammo), copy.deepcopy(ppammo), copy.deepcopy(medpack)],
+npcs = [],
+exits= [])
+pok01_pietro2 = Area(name = NazPok[1],
+desc = 'pokoj',
+x = 0,
+y = 10,
+object = [copy.deepcopy(medpack), copy.deepcopy(medpack)],
+npcs = [],
+exits = [])
+
+pietro2 = Area(name = 'drugie pietro szpitala',
+desc = 'to jest drugie pietro tego ogromnego szpitala',
+max_x = 100,
+max_y = 100,
+x = 0,
+y = 40,
+object = [],
+npcs = [copy.deepcopy(gang2), copy.deepcopy(terrorysta2),copy.deepcopy(gang2), copy.deepcopy(terrorysta2),copy.deepcopy(gang2), copy.deepcopy(terrorysta2),copy.deepcopy(gang2), copy.deepcopy(terrorysta2),copy.deepcopy(gang2), copy.deepcopy(terrorysta2)],
+exits = [pok10_pietro2, pok09_pietro2, pok08_pietro2, pok07_pietro2, pok06_pietro2, pok05_pietro2, pok04_pietro2, pok03_pietro2, pok02_pietro2, pok01_pietro2])
+
+pok10_pietro1 = Area(name=NazPok[10],
+desc = 'pokoj',
+x = 0,
+y = 100,
+object = [copy.deepcopy(granat), copy.deepcopy(granat)],
+npcs = [copy.deepcopy(gang2)],
+exits=[])
+pok09_pietro1 = Area(name=NazPok[9],
+desc = 'pokoj',
+x = 0,
+y = 90,
+object = [copy.deepcopy(ppammo), copy.deepcopy(ppammo)],
+npcs = [],
+exits=[])
+pok08_pietro1 = Area(name=NazPok[8],
+desc = 'pokoj',
+x = 0,
+y = 80,
+object = [],
+npcs = [copy.deepcopy(terrorysta2), copy.deepcopy(terrorysta2), copy.deepcopy(terrorysta2)],
+exits = [])
+pok07_pietro1 = Area(name=NazPok[7],
+desc = '',
+x = 0,
+y = 70,
+object = [copy.deepcopy(akammo), copy.deepcopy(akammo), copy.deepcopy(akammo)],
+npcs = [copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2)],
+exits = [])
+pok06_pietro1 = Area(name = NazPok[6],
+desc = '',
+x = 0,
+y = 60,
+object = [],
+npcs = [copy.deepcopy(terrorysta2), copy.deepcopy(terrorysta2), copy.deepcopy(terrorysta2), copy.deepcopy(terrorysta2)],
+exits = [])
+pok05_pietro1 = Area(name = NazPok[5],
+desc = '',
+x = 0,
+y = 50,
+object = [],
+npcs = [copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2)],
+exits = [])
+pok04_pietro1 = Area(name = NazPok[4],
+desc = 'pokoj',
+x = 0,
+y = 40,
+object = [copy.deepcopy(medpack)],
+npcs = [copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(terrorysta2)],
+exits = [])
+pok03_pietro1 = Area(name = NazPok[3],
+desc = '',
+x = 0,
+y = 30,
+object = [copy.deepcopy(ppammo), copy.deepcopy(ppammo)],
+npcs = [copy.deepcopy(gang2)],
+exits = [])
+pok02_pietro1 = Area(name = NazPok[2],
+desc = 'pokoj',
+x = 0,
+y = 20,
+object = [copy.deepcopy(bomba)],
+npcs = [copy.deepcopy(saper)],
+exits= [])
+pok01_pietro1 = Area(name = NazPok[1],
+desc = 'pokoj',
+x = 0,
+y = 10,
+object = [copy.deepcopy(medpack), copy.deepcopy(medpack), copy.deepcopy(medpack)],
+npcs = [copy.deepcopy(terrorysta2)],
+exits = [])
+
+pietro1 = Area(name = 'pietro pierwsze szpitala',
+desc = 'to jest pierwsze pietro tego ogromnego gmaszyska',
+max_x = 100,
+max_y = 100,
+x = 0,
+y = 20,
+object = [],
+npcs = [copy.deepcopy(gang2), copy.deepcopy(terrorysta2),copy.deepcopy(gang2), copy.deepcopy(terrorysta2),copy.deepcopy(gang2), copy.deepcopy(terrorysta2),copy.deepcopy(gang2), copy.deepcopy(terrorysta2),copy.deepcopy(gang2), copy.deepcopy(terrorysta2)],
+exits = [pok10_pietro1, pok09_pietro1, pok08_pietro1, pok07_pietro1, pok06_pietro1, pok05_pietro1, pok04_pietro1, pok03_pietro1, pok02_pietro1, pok01_pietro1])
+
+schody = Area(name = 'schody',
+desc = 'schody na pietra szpitala',
+x = 0,
+y = 50,
+object = [copy.deepcopy(medpack)],
+npcs = [copy.deepcopy(gang2), copy.deepcopy(terrorysta2)],
+exits = [pietro1, pietro2, pietro3])
+
+stolowka = Area(name = 'Stolowka',
+desc = 'stolowka szpitalna',
+x = 50,
+y = 0,
+object = [copy.deepcopy(bomba), copy.deepcopy(akammo), copy.deepcopy(medpack), copy.deepcopy(medpack), copy.deepcopy(ppammo), copy.deepcopy(dragammo), copy.deepcopy(granatnik)],
+npcs = [copy.deepcopy(saper)],
+exits = [])
+szpital = Area(name = 'szpital',
+max_x = 110,
+max_y = 110,
+x = 0,
+y = 50,
+object = [],
+npcs = [copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(gang2), copy.deepcopy(terrorysta2)],
+exits = [stolowka, schody])
+misja2_ulica_start = Area(name = 'ulica przed gmachem szpitala',
+desc = 'szeroka ulica przed ogromnym szpitalem miejskim',
+x = 0,
+y = 0,
+object = [copy.deepcopy(pp), copy.deepcopy(dragunow), copy.deepcopy(ak), copy.deepcopy(akammo), copy.deepcopy(ppammo), copy.deepcopy(ppammo), copy.deepcopy(ppammo), copy.deepcopy(medpack), copy.deepcopy(medpack), copy.deepcopy(medpack)],
+npcs = [],
+exits = [szpital])
+
 

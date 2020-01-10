@@ -31,7 +31,7 @@ class Player:
         weapon.get_sound.play()
 
 class Area:
-    def __init__(self, desc = '', max_x=100, max_y=100, name = None, object=[], npcs=[], exits=[], sound=sounds.doors[1], x=0, y=0):
+    def __init__(self, desc = '', max_x=50, max_y=50, name = None, object=[], npcs=[], exits=[], sound=sounds.doors[1], x=0, y=0):
         self.sound = sound
         self.x = x
         self.y = y
@@ -252,12 +252,19 @@ class Snajper(Weapon):
         if modespace == True:
             player.aims.clear()
             player.main_aim = None
-            player.aims.extend(area.npcs)
+#            player.aims.extend(area.npcs)
+            for x in area.npcs:
+                x.ag = x.aggresiv
+                x.aggresiv = False
+                player.aims.append(x)
             zoomin.play()
         if modespace == False:
+            npc = player.aims
             player.aims.clear()
             player.main_aim = None
             zoomout.play()
+            for x in npc:
+                x.aggresiv = x.ag
 
 
 
